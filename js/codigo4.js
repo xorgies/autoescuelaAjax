@@ -2,10 +2,24 @@
  * Created by Sergio Lopez Castaño on 06/03/2016.
  */
 $(function() {
-    var oOpcionesMenu = $(".dropdown ul li");
+    var oOpcionesMenu = $("#menu>li>ul>li");
+
+    $("#menu").menu();
+
+    //dialogo mensaje
+    $("#divMensajes").dialog({
+        autoOpen:false,
+        modal:true,
+        buttons: [{
+            text: "Aceptar",
+            click: function() {
+                $(this).dialog("close");
+            }
+        }]
+    });
 
     //Menu Alta Profesor
-    oOpcionesMenu[0].click(function(){
+    $("#menuAltaProfesor").click(function(){
         // Verifico si ya he cargado el formulario antes
         if( $('[name=frmProfesoresAlta]').size() == 0 ){
 
@@ -17,44 +31,44 @@ $(function() {
         }
     });
     //Menu Modificacion Profesor
-    oOpcionesMenu[1].click(function(){
+    $("#menuModProfesor").click(function(){
 
     });
     //Menu Listado Profesor
-    oOpcionesMenu[2].click(function(){
+    $("#menuListadoProfesor").click(function(){
 
     });
 
     //Menu Alta Cliente
-    oOpcionesMenu[3].click(function(){
+    $("#menuAltaCliente").click(function(){
 
     });
     //Menu Modificacion Cliente
-    oOpcionesMenu[4].click(function(){
+    $("#menuModCliente").click(function(){
 
     });
     //Menu Listado Cliente
-    oOpcionesMenu[5].click(function(){
+    $("#menuListadoCliente").click(function(){
 
     });
 
     //Menu Alta Vehiculo
-    oOpcionesMenu[6].click(function(){
+    $("#menuAltaVehiculo").click(function(){
 
     });
     //Menu Modificacion Vehiculo
-    oOpcionesMenu[7].click(function(){
+    $("#menuModVehiculo").click(function(){
 
     });
     //Menu Listado Vehiculo
-    oOpcionesMenu[8].click(function(){
+    $("#menuListadoVehiculo").click(function(){
 
     });
 
     //Menu Alta Clase Teorica
-    oOpcionesMenu[9].click(function(){
+    $("#menuAltaClaseTeorica").click(function(){
         // Verifico si ya he cargado el formulario antes
-        if( $('[name=frmClaseTeoricaAlta]').size() == 0 ){
+        if( $('#frmClaseTeoricaAlta').size() == 0 ){
 
             $('<div title="Alta clase teorica" id="divFrmAltaClaseTeorica"></div>').appendTo('#formularios').load("html/altaClaseTeorica.html", function(){ $.getScript("js/altaClaseTeorica.js")});
 
@@ -64,9 +78,9 @@ $(function() {
         }
     });
     //Menu Alta Clase Practica
-    oOpcionesMenu[10].click(function(){
+    $("#menuAltaClasePractica").click(function(){
         // Verifico si ya he cargado el formulario antes
-        if( $('[name=frmClasePracticaAlta]').size() == 0 ){
+        if( $('#frmClasePracticaAlta').size() == 0 ){
 
             $('<div title="Alta clase practica" id="divFrmAltaClasePractica"></div>').appendTo('#formularios').load("html/altaClasePractica.html", function(){ $.getScript("js/altaClasePractica.js")});
 
@@ -76,9 +90,9 @@ $(function() {
         }
     });
     //Menu Listado Clase
-    oOpcionesMenu[11].click(function(){
+    $("#menuListadoClase").click(function(){
         // Verifico si ya he cargado el formulario antes
-        if( $('[name=frmListadoClase]').size() == 0 ){
+        if( $('#frmListadoClase').size() == 0 ){
 
             $('<div title="Listado de clases" id="divFrmListadoClases"></div>').appendTo('#formularios').load("html/listadoClases.html", function(){ $.getScript("js/listadoClases.js")});
 
