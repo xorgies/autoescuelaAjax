@@ -20,7 +20,7 @@ $("#divFrmAltaClaseTeorica").dialog({
 var dias = ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"];
 var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
-$('#txtFechaAltaCla').datepicker({
+$('#txtFechaAltaClaTeorica').datepicker({
     monthNames: meses,
     dayNamesMin: dias,
     changeYear: true,

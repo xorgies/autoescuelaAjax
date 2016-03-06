@@ -17,6 +17,11 @@ $("#divFrmListadoClases").dialog({
     }]
 });
 
+
+//El listado al final se mostrara en el dialogo listados
+//Se cambiara el title del dialogo y dentro se colocara un <table> con la informacion
+
+
 function procesoListadoClase(){
 
 }

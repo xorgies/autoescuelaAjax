@@ -2,8 +2,7 @@
  * Created by Sergio Lopez Castaño on 06/03/2016.
  */
 $(function() {
-    var oOpcionesMenu = $("#menu>li>ul>li");
-
+    //menu
     $("#menu").menu();
 
     //dialogo mensaje
@@ -18,6 +17,28 @@ $(function() {
         }]
     });
 
+    //dialogo listados
+    $("#listados").dialog({
+        autoOpen: false,
+        close: function () {
+            $("table").remove();
+        },
+        closeOnEscape: false, // No se cierra con ESCAPE
+        hide:"fold",
+        show: "fold",
+        height:"auto",
+        width:"auto",
+        resizable:true,
+        buttons: [{
+            text: "Aceptar",
+            click: function(){
+                $(this).dialog("close");
+            }
+        }]
+    });
+
+    cargarTiposVehiculo();
+
     //Menu Alta Profesor
     $("#menuAltaProfesor").click(function(){
         // Verifico si ya he cargado el formulario antes
@@ -30,10 +51,12 @@ $(function() {
             $('#divFrmAltaProfesor').dialog("open");
         }
     });
+
     //Menu Modificacion Profesor
     $("#menuModProfesor").click(function(){
 
     });
+
     //Menu Listado Profesor
     $("#menuListadoProfesor").click(function(){
 
@@ -43,10 +66,12 @@ $(function() {
     $("#menuAltaCliente").click(function(){
 
     });
+
     //Menu Modificacion Cliente
     $("#menuModCliente").click(function(){
 
     });
+
     //Menu Listado Cliente
     $("#menuListadoCliente").click(function(){
 
@@ -54,15 +79,41 @@ $(function() {
 
     //Menu Alta Vehiculo
     $("#menuAltaVehiculo").click(function(){
+        // Verifico si ya he cargado el formulario antes
+        if( $('#frmVehiculosAlta').size() == 0 ){
 
+            $('<div title="Alta veh&iacute;culo" id="divFrmAltaVehiculo"></div>').appendTo('#formularios').load("html/altaVehiculo.html", function(){ $.getScript("js/altaVehiculo.js")});
+
+        } else {
+            // Lo abro si está cerrado
+            $('#divFrmAltaVehiculo').dialog("open");
+        }
     });
+
     //Menu Modificacion Vehiculo
     $("#menuModVehiculo").click(function(){
+        // Verifico si ya he cargado el formulario antes
+        if( $('#frmVehiculosModificar').size() == 0 ){
 
+            $('<div title="Modificar veh&iacute;culo" id="divFrmModVehiculo"></div>').appendTo('#formularios').load("html/modVehiculo.html", function(){ $.getScript("js/modVehiculo.js")});
+
+        } else {
+            // Lo abro si está cerrado
+            $('#divFrmModVehiculo').dialog("open");
+        }
     });
+
     //Menu Listado Vehiculo
     $("#menuListadoVehiculo").click(function(){
+        // Verifico si ya he cargado el formulario antes
+        if( $('#frmVehiculoListado').size() == 0 ){
 
+            $('<div title="Listado de veh&iacute;culos" id="divFrmListadoVehiculo"></div>').appendTo('#formularios').load("html/listadoVehiculo.html", function(){ $.getScript("js/listadoVehiculo.js")});
+
+        } else {
+            // Lo abro si está cerrado
+            $('#divFrmListadoVehiculo').dialog("open");
+        }
     });
 
     //Menu Alta Clase Teorica
@@ -77,6 +128,7 @@ $(function() {
             $('#divFrmAltaClaseTeorica').dialog("open");
         }
     });
+
     //Menu Alta Clase Practica
     $("#menuAltaClasePractica").click(function(){
         // Verifico si ya he cargado el formulario antes
@@ -89,6 +141,7 @@ $(function() {
             $('#divFrmAltaClasePractica').dialog("open");
         }
     });
+
     //Menu Listado Clase
     $("#menuListadoClase").click(function(){
         // Verifico si ya he cargado el formulario antes
@@ -103,3 +156,11 @@ $(function() {
     });
 
 });
+
+function cargarTiposVehiculo(){
+    $.get('php/getTiposVehiculos.php',null,tratarTiposVehiculos,'json');
+}
+function tratarTiposVehiculos(oArrayTiposVehiculos, sStatus, oXHR){
+    // Guardar en localStorage
+    localStorage["tiposVehiculos"] = JSON.stringify(oArrayTiposVehiculos);
+}
