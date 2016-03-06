@@ -3,7 +3,7 @@
  */
 $("#divFrmModVehiculo").dialog({
     autoOpen: true,  // Es el valor por defecto
-    open:cargarSelectModTipoVehiculo,
+    open:cargarSelectsMod,
     close: function () {
         $("#frmVehiculosModificar")[0].reset();
     },
@@ -17,6 +17,18 @@ $("#divFrmModVehiculo").dialog({
         click: procesoModVehiculo
     }]
 });
+function cargarSelectsMod(){
+    $.get('php/getVehiculos.php',null,cargarSelectVehiculos,'json');
+    cargarSelectModTipoVehiculo();
+}
+
+function cargarSelectVehiculos(oArrayVehiculos, sStatus, oXHR){
+    $("#sltModificarVehi").empty();
+
+    $(oArrayVehiculos).each(function(){
+        $('<option>').val(this.matricula).text(this.matricula+" - "+this.modelo).appendTo("#sltModificarVehi");
+    });
+}
 
 function cargarSelectModTipoVehiculo(){
     $("#sltTipoModificarVehi").empty();

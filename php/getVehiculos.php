@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Sergio Lopez Castaño
  * Date: 06/03/2016
- * Time: 17:57
+ * Time: 18:35
  */
 
 // Cabecera para indicar que vamos a enviar datos JSON y que no haga caché de los datos.
@@ -28,7 +28,7 @@ mysql_query("SET NAMES 'utf8'", $conexion);
 mysql_select_db($basedatos, $conexion) or die(mysql_error());
 
 // Consulta SQL para obtener los datos de los propietarios
-$sql = "SELECT DISTINCT tipo FROM vehiculo; ";
+$sql = "SELECT matricula,modelo FROM vehiculo";
 
 $resultados = mysql_query($sql, $conexion) or die(mysql_error());
 while ($fila = mysql_fetch_assoc($resultados)) {

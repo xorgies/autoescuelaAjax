@@ -21,7 +21,7 @@ var dias = ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"];
 var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
 $('#txtFechaAltaClaTeorica').datepicker({
-    monthNames: meses,
+    monthNamesShort: meses,
     dayNamesMin: dias,
     changeYear: true,
     changeMonth: true

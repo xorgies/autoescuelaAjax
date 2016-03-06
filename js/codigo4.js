@@ -41,15 +41,15 @@ $(function() {
 
     //Menu Alta Profesor
     $("#menuAltaProfesor").click(function(){
-        // Verifico si ya he cargado el formulario antes
-        if( $('[name=frmProfesoresAlta]').size() == 0 ){
-
-            $('<div title="Alta profesor" id="divFrmAltaProfesor"></div>').appendTo('#formularios').load("html/frmAltaProfesor.html", function(){ $.getScript("js/altaProfesor.js")});
-
-        } else {
-            // Lo abro si está cerrado
-            $('#divFrmAltaProfesor').dialog("open");
-        }
+        //// Verifico si ya he cargado el formulario antes
+        //if( $('[name=frmProfesoresAlta]').size() == 0 ){
+        //
+        //    $('<div title="Alta profesor" id="divFrmAltaProfesor"></div>').appendTo('#formularios').load("html/frmAltaProfesor.html", function(){ $.getScript("js/altaProfesor.js")});
+        //
+        //} else {
+        //    // Lo abro si está cerrado
+        //    $('#divFrmAltaProfesor').dialog("open");
+        //}
     });
 
     //Menu Modificacion Profesor
