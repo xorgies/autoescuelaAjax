@@ -42,5 +42,8 @@ td,th{
     padding-top: 15px;
     background-color: black;
     color:white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 /* Fin pie */

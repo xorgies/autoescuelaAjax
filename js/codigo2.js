@@ -25,10 +25,12 @@ $(function(){
     //Menu Listado Vehiculo
     oLI[8].addEventListener("click",mostrarListadoVehiculo,false);
 
-    //Menu Alta Clase
-    oLI[9].addEventListener("click",mostrarAltaClase,false);
+    //Menu Alta Clase Teorica
+    oLI[9].addEventListener("click",mostrarAltaClaseTeorica,false);
+    //Menu Alta Clase Practica
+    oLI[10].addEventListener("click",mostrarAltaClasePractica,false);
     //Menu Listado Clase
-    oLI[10].addEventListener("click",mostrarListadoClase,false);
+    oLI[11].addEventListener("click",mostrarListadoClase,false);
 
 
 });
@@ -136,7 +138,15 @@ function mostrarListadoVehiculo(){
 //------Funciones mostrarVehiculo--------
 
 //------Funciones mostrarClase--------
-function mostrarAltaClase(){
+function mostrarAltaClaseTeorica(){
+    ocultarTodosFormularios();
+
+    var oCapa = document.getElementById("altaClase");
+    limpiarCampos(oCapa);
+    oCapa.classList.remove("oculto");
+    oCapa.classList.add("capaVisible");
+}
+function mostrarAltaClasePractica(){
     ocultarTodosFormularios();
 
     var oCapa = document.getElementById("altaClase");
