@@ -63,3 +63,15 @@ $('.dropdown ul li')[4].click(function(){
     }
 
 });
+
+
+function cargarSelectsClaTeorica(){
+    $.get('php/getClaseTeorica.php',null,procesarClaTeorica,'json');
+}
+function procesarClaTeorica(oArrayClases, sStatus, oXHR){
+    $("#sltAltaCli").empty();
+
+    $(oArrayClases).each(function(){
+        $('<option>').val(this.cod_claset).text(this.fecha+" "+this.hora).appendTo("#sltAltaCli");
+    });
+}
