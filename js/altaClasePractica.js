@@ -32,10 +32,8 @@ function cargarSelectsClaPra(){
     $.get('php/getClientes.php',null,cargarClientesClaPra,'json');
 }
 
-function cargarProfesoresClaPra(){
+function cargarProfesoresClaPra(oArrayProfesores, sStatus, oXHR){
     $("#sltProfAltaClaPractica").empty();
-
-    var oArrayProfesores = JSON.parse(localStorage["profesores"]);
 
     $(oArrayProfesores).each(function(){
         $('<option>').val(this.dni).text(this.nombre+" "+this.apellidos).appendTo("#sltProfAltaClaPractica");
@@ -43,10 +41,8 @@ function cargarProfesoresClaPra(){
 
 }
 
-function cargarClientesClaPra(){
+function cargarClientesClaPra(oArrayClientes, sStatus, oXHR){
     $("#sltCliAltaClaPractica").empty();
-
-    var oArrayClientes = JSON.parse(localStorage["clientes"]);
 
     $(oArrayClientes).each(function(){
         $('<option>').val(this.dni).text(this.nombre+" "+this.apellidos).appendTo("#sltCliAltaClaPractica");
@@ -54,7 +50,7 @@ function cargarClientesClaPra(){
 }
 
 function procesoAltaClasePractica(){
-    //if(validarAltaClasePractica()){ //todo validar clase practica
+    if(validarAltaClasePractica()){
         var iDuracion=parseInt($("#txtDuracionAltaClaPractica").val());
         var dtFecha=new Date($("#txtFechaAltaClaPractica").val());
         var sHora=$("#txtHoraAltaClaPractica").val();
@@ -78,7 +74,7 @@ function procesoAltaClasePractica(){
         // Llamada POST con Jquery
         $.post("php/altaClasePractica.php",sParametroPOST,respuestaAltaClasePractica,'json');
 
-    //}
+    }
 }
 
 
@@ -98,4 +94,60 @@ function respuestaAltaClasePractica(oArrayRespuesta,sEstado,oXHR){
 
 function validarAltaClasePractica(){
 
+    var bValido=true;
+    var sError="";
+    //limpia errores
+    $('input,select').removeClass("error");
+
+    //campo duracion
+    var sDuracion=$("#txtDuracionAltaClaPractica").val().trim();
+    $("#txtDuracionAltaClaPractica").val(sDuracion);
+
+    if (sDuracion=="" || !comprobarFloat(sDuracion)) {
+        bValido = false;
+        sError += "La duracion no es valida<br>";
+        $("#txtDuracionAltaClaPractica").addClass("error");
+    }
+
+    //Campo fecha
+    var sfecha = $("#txtFechaAltaClaPractica").val().trim();
+
+    if(sfecha=="") {
+        bValido = false;
+        sError += "El campo de fecha esta vacia<br>";
+        $("#txtFechaAltaClaPractica").addClass("error");
+    }
+
+
+    //Campo hora
+    var sHora = $("#txtHoraAltaClaPractica").val().trim();
+    //Campo corregido con trim
+    $("#txtHoraAltaClaPractica").val(sHora);
+
+    var oExpReg2 = /^(((0|1)[0-9])|2[0-3]):[0-5][0-9]$/;
+
+    if(sHora=="" || oExpReg2.test(sHora) == false) {
+        bValido = false;
+        sError += "La hora no es valida<br>";
+        $("#txtHoraAltaClaPractica").addClass("error");
+    }
+
+    //Campo tarifa
+    var sTarifa = $("#txtTarifaAltaClaPractica").val().trim();
+    //Campo corregido con trim
+    $("#txtTarifaAltaClaPractica").val(sTarifa);
+
+    if(sTarifa=="" || !comprobarFloat(sTarifa)){
+        bValido = false;
+        sError += "La tarifa no es valida";
+        $("#txtTarifaAltaClaPractica").addClass("error");
+    }
+
+    if(!bValido){
+        $("#divMensajes").dialog("open");
+        $("#divMensajes").dialog("option","title","Error validacion");
+        $("#pMensaje").html(sError);
+    }
+
+    return bValido;
 }

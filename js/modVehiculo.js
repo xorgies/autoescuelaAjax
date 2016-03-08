@@ -1,11 +1,11 @@
 /**
  * Created by Sergio Lopez Castaño on 06/03/2016.
  */
-$("#frmVehiculosModificarElegir").dialog({
+$("#divFrmModVehiculoElegir").dialog({
     autoOpen: true,  // Es el valor por defecto
     open:cargarSelectsMod,
     close: function () {
-        $("#frmVehiculosModificar")[0].reset();
+        $("#frmVehiculosModificarElegir")[0].reset();
     },
     hide: "fold",
     show: "fold",
@@ -34,7 +34,7 @@ function abrirDialogoDatos(){
 function cargarDatosDialogo(){
     var sVehiculoElegido=$('#sltModificarVehi').val();
 
-    $("#frmVehiculosModificarElegir").dialog('close');
+    $("#divFrmModVehiculoElegir").dialog('close');
 
     $.get('php/getVehiculo.php?matricula='+sVehiculoElegido,null,cargarDatos,'json');
 }
@@ -47,7 +47,7 @@ function cargarDatos(oArrayVehiculo, sStatus, oXHR){
 
 function cargarSelectsMod(){
     $.get('php/getVehiculos.php',null,cargarSelectVehiculos,'json');
-    cargarSelectModTipoVehiculo();
+    //cargarSelectModTipoVehiculo();
 }
 
 function cargarSelectVehiculos(oArrayVehiculos, sStatus, oXHR){
@@ -58,7 +58,7 @@ function cargarSelectVehiculos(oArrayVehiculos, sStatus, oXHR){
     });
 }
 
-function cargarSelectModTipoVehiculo(){
+/*function cargarSelectModTipoVehiculo(){
     $("#sltTipoModificarVehi").empty();
 
     var oArrayTiposVehiculos = JSON.parse(localStorage["tiposVehiculos"]);
@@ -67,17 +67,15 @@ function cargarSelectModTipoVehiculo(){
         $('<option>').val(this.tipo).text(this.tipo).appendTo("#sltTipoModificarVehi");
     });
 
-}
+}*/
 
 
 function cargarSelectProfesorModVehiculo(){
     $.get('php/getProfesores.php',null,cargarProfesoresVehiculoMod,'json');
 }
 
-function cargarProfesoresVehiculoMod(){
+function cargarProfesoresVehiculoMod(oArrayProfesores, sStatus, oXHR){
     $("#sltProfModificarVehi").empty();
-
-    var oArrayProfesores = JSON.parse(localStorage["profesores"]);
 
     $(oArrayProfesores).each(function(){
         $('<option>').val(this.dni).text(this.nombre+" "+this.apellidos).appendTo("#sltProfModificarVehi");
@@ -87,7 +85,7 @@ function cargarProfesoresVehiculoMod(){
 function procesoModVehiculo(){
 
 
-    //if(validarModVehiculo()){ //todo validar vehiculo
+    if(validarModVehiculo()){
         var sMatricula=$("#txtMatriculaModificarVehi").val();
         var sMarca=$("#txtMarcaModificarVehi").val();
         var sModelo=$("#txtModeloModificarVehi").val();
@@ -113,12 +111,14 @@ function procesoModVehiculo(){
             success: tratarRespuestaModVehiculo,
             error :tratarErrorModVehiculo
         });
-    //}
+    }
 }
 
 
 function tratarRespuestaModVehiculo(oArrayRespuesta,sStatus,oXHR){
     $("#divMensajes").dialog("open");
+
+    cargarTiposVehiculo();
 
     if (oArrayRespuesta[0] == true){
         $("#divMensajes").dialog("option","title","Error");
@@ -139,5 +139,45 @@ function tratarErrorModVehiculo(oXHR,sStatus,sError){
 }
 
 function validarModVehiculo(){
+    var bValido=true;
+    var sError="";
+    //limpia errores
+    $('input,select').removeClass("error");
 
+    //Campo marca
+    var sMarca = $("#txtMarcaModificarVehi").val().trim();
+    //Campo corregido con trim
+    $("#txtMarcaModificarVehi").val(sMarca);
+
+    var oExpReg2 = /^[a-zA-Z\s\u00f1\u00d1]{3,20}$/;
+
+    if(sMarca=="" || oExpReg2.test(sMarca) == false) {
+        bValido = false;
+        sError += "La marca no es valida<br>";
+        $("#txtMarcaModificarVehi").addClass("error");
+    }
+
+
+    //Campo modelo
+    var sModelo = $("#txtModeloModificarVehi").val().trim();
+    //Campo corregido con trim
+    $("#txtModeloModificarVehi").val(sModelo);
+
+    var oExpReg3 = /^[\w\d\s\u00f1\u00d1]{3,25}$/;
+
+    if(sModelo=="" || oExpReg3.test(sModelo) == false) {
+        bValido = false;
+        sError += "El modelo no es valido";
+        $("#txtModeloModificarVehi").addClass("error");
+    }
+
+
+
+    if(!bValido){
+        $("#divMensajes").dialog("open");
+        $("#divMensajes").dialog("option","title","Error validacion");
+        $("#pMensaje").html(sError);
+    }
+
+    return bValido;
 }

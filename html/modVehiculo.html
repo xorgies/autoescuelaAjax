@@ -19,7 +19,9 @@
         <label for="sltTipoModificarVehi">Tipo:</label>
         <br>
         <select name="sltTipoModificarVehi" id="sltTipoModificarVehi">
-
+                <option value="coche">Coche</option>
+                <option value="moto">Moto</option>
+                <option value="camion">Camion</option>
         </select>
          <br>
 
@@ -36,7 +38,7 @@
                  autoOpen: true,  // Es el valor por defecto
                  open:function() {
                          cargarSelectProfesorModVehiculo();
-                         cargarSelectModTipoVehiculo();
+                         /*cargarSelectModTipoVehiculo();*/
                          cargarDatosDialogo();
                  },
                  close:function () {

@@ -2,6 +2,10 @@ body{
     background-color: beige;
 }
 
+.error{
+    background-color: yellow;
+}
+
 .ui-menu {
     width: 200px;
 }

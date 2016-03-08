@@ -4,7 +4,7 @@
 $("#divFrmAltaVehiculo").dialog({
     autoOpen: true,  // Es el valor por defecto
     open:function() {
-        cargarSelectAltaTipoVehiculo();
+        //cargarSelectAltaTipoVehiculo();
         cargarSelectProfesorAltaVehiculo();
     },
 
@@ -22,7 +22,7 @@ $("#divFrmAltaVehiculo").dialog({
     }]
 });
 
-
+/*
 function cargarSelectAltaTipoVehiculo(){
     $("#sltTipoAltaVehi").empty();
 
@@ -34,16 +34,14 @@ function cargarSelectAltaTipoVehiculo(){
         $('<option>').val(this.tipo).text(this.tipo).appendTo("#sltTipoAltaVehi");
     });
 
-}
+}*/
 
 function cargarSelectProfesorAltaVehiculo(){
     $.get('php/getProfesores.php',null,cargarProfesoresVehiculo,'json');
 }
 
-function cargarProfesoresVehiculo(){
+function cargarProfesoresVehiculo(oArrayProfesores, sStatus, oXHR){
     $("#sltProfAltaVehi").empty();
-
-    var oArrayProfesores = JSON.parse(localStorage["profesores"]);
 
     $(oArrayProfesores).each(function(){
         $('<option>').val(this.dni).text(this.nombre+" "+this.apellidos).appendTo("#sltProfAltaVehi");
@@ -51,7 +49,7 @@ function cargarProfesoresVehiculo(){
 }
 
 function procesoAltaVehiculo(){
-    //if(validarAltaVehiculo()){ //todo validar vehiculo
+    if(validarAltaVehiculo()){
         var sMatricula=$("#txtMatriculaAltaVehi").val();
         var sMarca=$("#txtMarcaAltaVehi").val();
         var sModelo=$("#txtModeloAltaVehi").val();
@@ -77,12 +75,14 @@ function procesoAltaVehiculo(){
             success: tratarRespuestaAltaVehiculo,
             error :tratarErrorAltaVehiculo
         });
-    //}
+    }
 }
 
 
 function tratarRespuestaAltaVehiculo(oArrayRespuesta,sStatus,oXHR){
     $("#divMensajes").dialog("open");
+
+    cargarTiposVehiculo();
 
     if (oArrayRespuesta[0] == true){
         $("#divMensajes").dialog("option","title","Error");
@@ -103,5 +103,102 @@ function tratarErrorAltaVehiculo(oXHR,sStatus,sError){
 }
 
 function validarAltaVehiculo(){
+    var bValido=true;
+    var sError="";
+    //limpia errores
+    $('input,select').removeClass("error");
+
+    //campo matricula
+    var sMatricula=$("#txtMatriculaAltaVehi").val().trim();
+    $("#txtMatriculaAltaVehi").val(sMatricula);
+
+    var oExpReg = /^\d{4}[a-zA-Z]{3}$/;
+
+    if (sMatricula=="" || oExpReg.test(sMatricula) == false) {
+        bValido = false;
+        sError += "La matricula no es valida<br>";
+        $("#txtMatriculaAltaVehi").addClass("error");
+    }else {
+        buscaVehiculo(sMatricula);
+        if(bMatriculaEncontrada) {
+            bValido = false;
+            sError += "La matricula ya existe<br>";
+            $("#").addClass("error");
+        }
+    }
+
+    //Campo marca
+    var sMarca = $("#txtMarcaAltaVehi").val().trim();
+    //Campo corregido con trim
+    $("#txtMarcaAltaVehi").val(sMarca);
+
+    var oExpReg2 = /^[a-zA-Z\s\u00f1\u00d1]{3,20}$/;
+
+    if(sMarca=="" || oExpReg2.test(sMarca) == false) {
+        bValido = false;
+        sError += "La marca no es valida<br>";
+        $("#txtMarcaAltaVehi").addClass("error");
+    }
+
+
+    //Campo modelo
+    var sModelo = $("#txtModeloAltaVehi").val().trim();
+    //Campo corregido con trim
+    $("#txtModeloAltaVehi").val(sModelo);
+
+    var oExpReg3 = /^[\w\d\s\u00f1\u00d1]{3,25}$/;
+
+    if(sModelo=="" || oExpReg3.test(sModelo) == false) {
+        bValido = false;
+        sError += "El modelo no es valido";
+        $("#txtModeloAltaVehi").addClass("error");
+    }
+
+
+
+    if(!bValido){
+        $("#divMensajes").dialog("open");
+        $("#divMensajes").dialog("option","title","Error validacion");
+        $("#pMensaje").html(sError);
+    }
+
+    return bValido;
+}
+
+
+//variable global
+var bMatriculaEncontrada=false;
+var oAjaxvalidacionMatricula = null;
+
+function buscaVehiculo(sMatricula){
+
+    var sParametroGET = encodeURI("matricula="+sMatricula);
+
+    // Script de envio
+    var sURL = encodeURI("php/buscaVehiculo.php?");
+
+    llamadaAjaxValidacionVehiculo(sURL,sParametroGET);
 
 }
+
+function llamadaAjaxValidacionVehiculo(sURL,sParametroGET){
+
+    oAjaxvalidacionMatricula = objetoXHR();
+
+    oAjaxvalidacionMatricula.open("GET",sURL+sParametroGET,false);
+
+    oAjaxvalidacionMatricula.onreadystatechange = respuestaValidacionMatricula;
+
+    oAjaxvalidacionMatricula.send(null);
+}
+
+function respuestaValidacionMatricula(){
+
+    if(oAjaxvalidacionMatricula.readyState == 4 && oAjaxvalidacionMatricula.status ==200)	{
+        var oArrayRespuesta = JSON.parse(oAjaxvalidacionMatricula.responseText);
+
+        bMatriculaEncontrada = oArrayRespuesta[0];
+    }
+
+}
+

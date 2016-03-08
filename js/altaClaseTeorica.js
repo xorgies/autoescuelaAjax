@@ -29,13 +29,10 @@ $('#txtFechaAltaClaTeorica').datepicker({
 });
 
 function cargarSelectsClaTeo(){
-    $.get('php/getProfesores.php',null,cargarProfesoresClaTeo,'json');
+    $.get('php/getProfesores.php',null,tratarCargarProfesoresClaTeo,'json');
 }
-
-function cargarProfesoresClaTeo(){
+function tratarCargarProfesoresClaTeo(oArrayProfesores, sStatus, oXHR){
     $("#sltProfAltaClaTeorica").empty();
-
-    var oArrayProfesores = JSON.parse(localStorage["profesores"]);
 
     $(oArrayProfesores).each(function(){
         $('<option>').val(this.dni).text(this.nombre+" "+this.apellidos).appendTo("#sltProfAltaClaTeorica");
@@ -45,7 +42,7 @@ function cargarProfesoresClaTeo(){
 
 function procesoAltaClaseTeorica(){
 
-    //if(validarAltaClaseTeorica()){ //todo validar clase teorica
+    if(validarAltaClaseTeorica()){
         var iDuracion=parseInt($("#txtDuracionAltaClaTeorica").val());
         var dtFecha=new Date($("#txtFechaAltaClaTeorica").val());
         var sHora=$("#txtHoraAltaClaTeorica").val();
@@ -73,7 +70,7 @@ function procesoAltaClaseTeorica(){
         });
 
 
-    //}
+    }
 }
 
 
@@ -99,5 +96,66 @@ function tratarErrorAltaClaseTeorica(oXHR,sStatus,sError){
 }
 
 function validarAltaClaseTeorica(){
+    //todo validar clase teorica
+
+    var bValido=true;
+    var sError="";
+    //limpia errores
+    $('input,select').removeClass("error");
+
+    //campo duracion
+    var sDuracion=$("#txtDuracionAltaClaTeorica").val().trim();
+    $("#txtDuracionAltaClaTeorica").val(sDuracion);
+
+    if (sDuracion=="" || !comprobarFloat(sDuracion)) {
+        bValido = false;
+        sError += "La duracion no es valida<br>";
+        $("#txtDuracionAltaClaTeorica").addClass("error");
+    }
+
+    //Campo fecha
+    var sfecha = $("#txtFechaAltaClaTeorica").val().trim();
+
+    if(sfecha=="") {
+        bValido = false;
+        sError += "El campo de fecha esta vacia<br>";
+        $("#txtFechaAltaClaTeorica").addClass("error");
+    }
+
+
+    //Campo hora
+    var sHora = $("#txtHoraAltaClaTeorica").val().trim();
+    //Campo corregido con trim
+    $("#txtHoraAltaClaTeorica").val(sHora);
+
+    var oExpReg2 = /^(((0|1)[0-9])|2[0-3]):[0-5][0-9]$/;
+
+    if(sHora=="" || oExpReg2.test(sHora) == false) {
+        bValido = false;
+        sError += "La hora no es valida<br>";
+        $("#txtHoraAltaClaTeorica").addClass("error");
+    }
+
+    //Campo Aforo
+    var sAforo = $("#txtAforoAltaClaTeorica").val().trim();
+    //Campo corregido con trim
+    $("#txtAforoAltaClaTeorica").val(sAforo);
+
+    var oExpReg3 = /^\d{1,3}$/;
+
+    if(sAforo=="" || !oExpReg3.test(sAforo)){
+        bValido = false;
+        sError += "La tarifa no es valida";
+        $("#txtAforoAltaClaTeorica").addClass("error");
+    }
+
+    if(!bValido){
+        $("#divMensajes").dialog("open");
+        $("#divMensajes").dialog("option","title","Error validacion");
+        $("#pMensaje").html(sError);
+    }
+
+    return bValido;
 
 }
+

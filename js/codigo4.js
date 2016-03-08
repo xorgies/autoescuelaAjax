@@ -166,6 +166,15 @@ function tratarTiposVehiculos(oArrayTiposVehiculos, sStatus, oXHR){
     // Guardar en localStorage
     localStorage["tiposVehiculos"] = JSON.stringify(oArrayTiposVehiculos);
 }
+function comprobarFloat(sNumero){
+    var bNumero=false;
+    var fNumero=parseFloat(sNumero);
 
+    if(!isNaN(fNumero)){
+        bNumero=true;
+    }
+
+    return bNumero;
+}
 
 
