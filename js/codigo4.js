@@ -21,7 +21,7 @@ $(function() {
     $("#listados").dialog({
         autoOpen: false,
         close: function () {
-            $("table").remove();
+            $("#listado").remove();
         },
         closeOnEscape: false, // No se cierra con ESCAPE
         hide:"fold",
@@ -93,13 +93,13 @@ $(function() {
     //Menu Modificacion Vehiculo
     $("#menuModVehiculo").click(function(){
         // Verifico si ya he cargado el formulario antes
-        if( $('#frmVehiculosModificar').size() == 0 ){
+        if( $('#frmVehiculosModificarElegir').size() == 0 ){
 
-            $('<div title="Modificar veh&iacute;culo" id="divFrmModVehiculo"></div>').appendTo('#formularios').load("html/modVehiculo.html", function(){ $.getScript("js/modVehiculo.js")});
+            $('<div title="Modificar veh&iacute;culo" id="divFrmModVehiculoElegir"></div>').appendTo('#formularios').load("html/modVehiculoElegir.html", function(){ $.getScript("js/modVehiculo.js")});
 
         } else {
             // Lo abro si está cerrado
-            $('#divFrmModVehiculo').dialog("open");
+            $('#divFrmModVehiculoElegir').dialog("open");
         }
     });
 
@@ -127,6 +127,7 @@ $(function() {
             // Lo abro si está cerrado
             $('#divFrmAltaClaseTeorica').dialog("open");
         }
+
     });
 
     //Menu Alta Clase Practica
@@ -140,6 +141,7 @@ $(function() {
             // Lo abro si está cerrado
             $('#divFrmAltaClasePractica').dialog("open");
         }
+
     });
 
     //Menu Listado Clase
@@ -164,3 +166,6 @@ function tratarTiposVehiculos(oArrayTiposVehiculos, sStatus, oXHR){
     // Guardar en localStorage
     localStorage["tiposVehiculos"] = JSON.stringify(oArrayTiposVehiculos);
 }
+
+
+

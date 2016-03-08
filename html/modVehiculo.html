@@ -1,12 +1,5 @@
  <form name="frmVehiculosModificar" id="frmVehiculosModificar" role="form">
 
-        <label for="sltModificarVehi">Vehiculo a modificar:</label>
-        <br>
-        <select id="sltModificarVehi" name="sltModificarVehi">
-            <!--Agregar los vehiculos de la bd-->
-        </select>
-        <br>
-
         <label for="txtMatriculaModificarVehi">Matr&iacute;cula: </label>
         <br>
         <input name="txtMatriculaModificarVehi" id="txtMatriculaModificarVehi" type="text" placeholder="matr&iacute;cula" disabled="disabled"/>
@@ -26,10 +19,37 @@
         <label for="sltTipoModificarVehi">Tipo:</label>
         <br>
         <select name="sltTipoModificarVehi" id="sltTipoModificarVehi">
-            <option value="0">Seleccione un tipo de vehiculo</option>
-            <!--<option value="moto">Moto</option>-->
-            <!--<option value="coche">Coche</option>-->
-            <!--<option value="camion">Camion</option>-->
+
         </select>
+         <br>
+
+         <label for="sltProfModificarVehi">Profesor:</label>
+         <br>
+         <select name="sltProfModificarVehi" id="sltProfModificarVehi">
+
+         </select>
 
  </form>
+
+ <script>
+         $("#divFrmModVehiculo").dialog({
+                 autoOpen: true,  // Es el valor por defecto
+                 open:function() {
+                         cargarSelectProfesorModVehiculo();
+                         cargarSelectModTipoVehiculo();
+                         cargarDatosDialogo();
+                 },
+                 close:function () {
+                         $("#frmVehiculosModificar")[0].reset();
+                 },
+                 hide: "fold",
+                 show: "fold",
+                 height:"auto",
+                 width:"auto",
+                 resizable:false,
+                 buttons: [{
+                         text: "Aceptar",
+                         click: procesoModVehiculo
+                 }]
+         });
+ </script>
