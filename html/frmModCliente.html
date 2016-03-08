@@ -1,47 +1,47 @@
-<div id="capaSelectModificarCliente">
-    <div class="input-group col-xs-12">
-        <label class="input-group-addon">Elige el cliente: </label>
-        <select id="sltModificarCli" name="sltModificarCli" class="form-control">
-            <!--Agregar los options-->
-        </select>
-    </div>
-    &nbsp;
-</div>
-<div id="capaFormularioModificarCliente">
-    <form name="frmClientesModificar" class="form-inline" role="form">
-        <div class="input-group col-xs-12">
-            <span class="input-group-addon">Nombre: </span>
-            <input name="txtNombreModificarCli" type="text" class="form-control" placeholder="nombre"/>
-        </div>
-        &nbsp;
-        <div class="input-group col-xs-12">
-            <span class="input-group-addon">Apellidos: </span>
-            <input name="txtApellidosModificarCli" type="text" class="form-control" placeholder="apellidos"/>
-        </div>
-        &nbsp;
-        <div class="input-group col-xs-12">
-            <span class="input-group-addon">Dni: </span>
-            <input name="txtDniModificarCli" type="text" class="form-control" placeholder="dni" disabled="disabled"/>
-        </div>
-        &nbsp;
-        <div class="input-group col-xs-12">
-            <span class="input-group-addon">Email: </span>
-            <input name="txtEmailModificarCli" type="text" class="form-control" placeholder="email"/>
-        </div>
-        &nbsp;
-        <div class="input-group col-xs-12">
-            <span class="input-group-addon">Direcci&oacute;n: </span>
-            <input name="txtDireccionModificarCli" type="text" class="form-control" placeholder="direcci&oacute;n"/>
-        </div>
-        &nbsp;
-        <div class="input-group col-xs-12">
-            <span class="input-group-addon">Tel&eacute;fono: </span>
-            <input name="txtTelefonoModificarCli" type="text" class="form-control" placeholder="tel&eacute;fono"/>
-        </div>
-        &nbsp;
+    <form name="frmClientesModificar" id="frmClientesModificar" role="form">
 
-        <div class="input-group col-xs-12">
-            <input type="button" id="btnEnviarModificarCli" name="btnEnviarModificarCli" value="Modificar" class="btn btn-primary col-xs-12"/>
-        </div>
+            <label>Nombre: </label><br/>
+            <input name="txtNombreModificarCli" type="text" placeholder="nombre"/><br/>
+
+            <label>Apellidos: </label><br/>
+            <input name="txtApellidosModificarCli" type="text" placeholder="apellidos"/><br/>
+
+            <label>Dni: </label><br/>
+            <input name="txtDniModificarCli" type="text"  placeholder="dni" disabled="disabled"/><br/>
+
+            <label>Email: </label><br/>
+            <input name="txtEmailModificarCli" type="text"  placeholder="email"/><br/>
+
+            <label>Direcci&oacute;n: </label><br/>
+            <input name="txtDireccionModificarCli" type="text" placeholder="direcci&oacute;n"/><br/>
+
+            <label>Tel&eacute;fono: </label><br/>
+            <input name="txtTelefonoModificarCli" type="text"  placeholder="tel&eacute;fono"/><br/>
+        <label>Clase teorica: </label><br/>
+        <select id="slModificaCli" name="slModificaCli">
+
+        </select>
+
     </form>
-</div>
+    <script>
+        $("#divFrmModCliente").dialog({
+            autoOpen: true,  // Es el valor por defecto
+            open:function() {
+                cargaClasesTeoricas();
+
+
+            },
+            close:function () {
+                $("#frmClientesModificar")[0].reset();
+            },
+            hide: "fold",
+            show: "fold",
+            height:"auto",
+            width:"auto",
+            resizable:false,
+            buttons: [{
+                text: "Aceptar",
+                click: procesoModCliente
+            }]
+        });
+    </script>
