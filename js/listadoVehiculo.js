@@ -76,6 +76,7 @@ function procesaXMLvehiculo(oXML){
     //borrar tabla si habia
     $("#listado").remove();
 
+
     var jqTabla = $('<table id="listado" border="1">');
 
     var oVehiculos = oXML.getElementsByTagName("vehiculo");

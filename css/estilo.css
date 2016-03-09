@@ -1,49 +1,22 @@
-/* barra navegacion */
-.dropdown-menu>li:hover {
-    background-color: #0033FF;
-    color:white;
+body{
+    background-color: beige;
 }
-/* Fin barra navegacion */
 
-/* Tamaño fijo de los input-group-addon */
-.input-group-addon,.form-inline .input-group .input-group-addon { width: 20%; }
-.input-group { width: 100%; }
-/* Fin tamaño */
-
-/* Ocultar-mostrar formularios */
-.oculto{
-    display: none;
-}
-.capaVisible{
-    display: block;
-}
-/* Fin Ocultar formularios */
-
-/* formularios */
 .error{
     background-color: yellow;
 }
-/* Fin formularios*/
 
-/* Tabla listados */
-table{
-    border:2px solid black;
+.ui-menu {
+    width: 200px;
 }
-td,th{
-    border:1px solid black;
-    width: 20%;
-    text-align: center;
-}
-/* Fin Tabla listados */
 
-/* pie */
 #pie{
-    margin-top: 30px ;
-    padding-top: 15px;
+    position:absolute;
+    bottom:0;
+    width: 100%;
+    text-align: center;
     background-color: black;
     color:white;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    padding: 3px 0;
+    left: 0;
 }
-/* Fin pie */

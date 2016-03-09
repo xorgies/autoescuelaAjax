@@ -96,7 +96,6 @@ function tratarErrorAltaClaseTeorica(oXHR,sStatus,sError){
 }
 
 function validarAltaClaseTeorica(){
-    //todo validar clase teorica
 
     var bValido=true;
     var sError="";

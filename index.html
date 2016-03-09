@@ -1,407 +1,71 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<title>El multazo</title>
-		<meta charset="UTF-8">
-		<meta name=description content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Bootstrap CSS -->
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <!-- Jquery ui CSS -->
-        <link href="jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
-        <link href="css/estilo.css" rel="stylesheet">
-	</head>
-	<body>
+<head>
+    <title>El multazo</title>
+    <meta charset="UTF-8">
+    <meta name=description content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Jquery ui CSS -->
+    <link href="jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
+    <link href="css/estilo.css" rel="stylesheet">
+</head>
+<body>
+    <img src="img/logo.png" alt="Logo"/>
+    <ul id="menu">
+        <li>Profesor
+            <ul>
+                <li id="menuAltaProfesor">Alta</li>
+                <li id="menuModProfesor">Modificar</li>
+                <li id="menuListadoProfesor">Listado</li>
+            </ul>
+        </li>
+        <li>Cliente
+            <ul>
+                <li id="menuAltaCliente">Alta</li>
+                <li id="menuModCliente">Modificar</li>
+                <li id="menuListadoCliente">Listado</li>
+            </ul>
+        </li>
+        <li>Veh&iacute;culo
+            <ul>
+                <li id="menuAltaVehiculo">Alta</li>
+                <li id="menuModVehiculo">Modificar</li>
+                <li id="menuListadoVehiculo">Listado</li>
+            </ul>
+        </li>
+        <li>Clase
+            <ul>
+                <li id="menuAltaClaseTeorica">Alta clase te&oacute;rica</li>
+                <li id="menuAltaClasePractica">Alta clase pr&aacute;ctica</li>
+                <li id="menuListadoClase">Listado</li>
+            </ul>
+        </li>
 
-        <div class="container-fluid">
+    </ul>
 
-            <!--cabecera logo-->
-            <div class="row">
-                <div class="col-sm-2 col-sm-offset-5">
-                    <img src="img/logo.png" class="img-responsive" alt="Logo"/>
-                </div>
-                <!--<div class="col-sm-2 col-sm-offset-1 text-center">-->
-                    <!--<h1>El multazo</h1>-->
-                <!--</div>-->
-            </div>
+    <div id="formularios"></div>
 
-            <!--barra navegacion-->
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <nav class="navbar navbar-default" role="navigation">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="">Inicio</a>
-                    </div>
+    <div id="listados" title="Listado"></div>
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse navbar-ex1-collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Profesores <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li class="text-center">Alta</li>
-                                    <li class="text-center">Modificaci&oacute;n</li>
-                                    <hr>
-                                    <li class="text-center">Listado</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Clientes <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li class="text-center">Alta</li>
-                                    <li class="text-center">Modificaci&oacute;n</li>
-                                    <hr>
-                                    <li class="text-center">Listado</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Veh&iacute;culos <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li class="text-center">Alta</li>
-                                    <li class="text-center">Modificaci&oacute;n</li>
-                                    <hr>
-                                    <li class="text-center">Listado</li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Clases <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li class="text-center">Alta clase Te&oacute;rica</li>
-                                    <li class="text-center">Alta clase Pr&aacute;ctica</li>
-                                    <hr>
-                                    <li class="text-center">Listado</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-                </div>
-            </div>
+    <div id="divMensajes" title="Titulo de la accion realizada">
+        <p id="pMensaje"></p>
+    </div>
 
-            <!--formularios-->
-            <div class="row" id="formularios">
+    <!-- Pie -->
+    <div id="pie">
+        <p><b>Hecho por:</b> <i>Sergio L&oacute;pez Casta&ntilde;o</i> e <i>Isabel Terrero G&oacute;mez</i></p>
+    </div>
 
-                <!-- Profesores -->
-                <!-- Alta -->
-                <div class="col-sm-6 col-sm-offset-3 oculto" id="altaProfesor">
-                    <h1 class="text-center">Alta Profesor</h1>
-                    <form name="frmProfesoresAlta" class="form-inline" role="form">
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Nombre: </span>
-                            <input name="txtNombreAltaProf" type="text" class="form-control" placeholder="nombre"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Apellidos: </span>
-                            <input name="txtApellidosAltaProf" type="text" class="form-control" placeholder="apellidos"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Dni: </span>
-                            <input name="txtDniAltaProf" type="text" class="form-control" placeholder="dni"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Email: </span>
-                            <input name="txtEmailAltaProf" type="text" class="form-control" placeholder="email"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Direcci&oacute;n: </span>
-                            <input name="txtDireccionAltaProf" type="text" class="form-control" placeholder="direcci&oacute;n"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Tel&eacute;fono: </span>
-                            <input name="txtTelefonoAltaProf" type="text" class="form-control" placeholder="tel&eacute;fono"/>
-                        </div>
-                        &nbsp;
-
-                        <div class="input-group col-xs-12">
-                            <input type="button" id="btnEnviarAltaProf" name="btnEnviarAltaProf" value="Alta" class="btn btn-primary col-xs-12"/>
-                        </div>
-                    </form>
-                </div>
-                <!-- Fin Alta -->
-                <!-- Modificar -->
-                <div class="col-sm-6 col-sm-offset-3 oculto" id="modificarProfesor">
-                    <h1 class="text-center">Modificar Profesor</h1>
-
-                    <div id="capaSelectModificarProfesor">
-                        <div class="input-group col-xs-12">
-                            <label class="input-group-addon">Elige el profesor: </label>
-                            <select id="sltModificarPro" name="sltModificarPro" class="form-control">
-                                <!--Agregar los options-->
-                            </select>
-                        </div>
-                        &nbsp;
-                    </div>
-
-                    <div id="capaModificarProfesor">
-                        <form name="frmProfesoresModificar" class="form-inline" role="form">
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Nombre: </span>
-                                <input name="txtNombreModificarProf" type="text" class="form-control" placeholder="nombre"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Apellidos: </span>
-                                <input name="txtApellidosModificarProf" type="text" class="form-control" placeholder="apellidos"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Dni: </span>
-                                <input name="txtDniModificarProf" type="text" class="form-control" placeholder="dni" disabled="disabled"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Email: </span>
-                                <input name="txtEmailModificarProf" type="text" class="form-control" placeholder="email"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Direcci&oacute;n: </span>
-                                <input name="txtDireccionModificarProf" type="text" class="form-control" placeholder="direcci&oacute;n"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Tel&eacute;fono: </span>
-                                <input name="txtTelefonoModificarProf" type="text" class="form-control" placeholder="tel&eacute;fono"/>
-                            </div>
-                            &nbsp;
-
-                            <div class="input-group col-xs-12">
-                                <input type="button" id="btnEnviarModificarProf" name="btnEnviarModificarProf" value="Modificar" class="btn btn-primary col-xs-12"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- Fin Modificar -->
-                <!-- Fin Profesores -->
-
-                <!-- Clientes -->
-                <!-- Alta -->
-                <div class="col-sm-6 col-sm-offset-3 oculto" id="altaCliente">
-                    <h1 class="text-center">Alta Cliente</h1>
-                    <form name="frmClientesAlta" class="form-inline" role="form">
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Nombre: </span>
-                            <input name="txtNombreAltaCli" type="text" class="form-control" placeholder="nombre"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Apellidos: </span>
-                            <input name="txtApellidosAltaCli" type="text" class="form-control" placeholder="apellidos"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Dni: </span>
-                            <input name="txtDniAltaCli" type="text" class="form-control" placeholder="dni"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Email: </span>
-                            <input name="txtEmailAltaCli" type="text" class="form-control" placeholder="email"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Direcci&oacute;n: </span>
-                            <input name="txtDireccionAltaCli" type="text" class="form-control" placeholder="direcci&oacute;n"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Tel&eacute;fono: </span>
-                            <input name="txtTelefonoAltaCli" type="text" class="form-control" placeholder="tel&eacute;fono"/>
-                        </div>
-                        &nbsp;
-
-                        <div class="input-group col-xs-12">
-                            <input type="button" id="btnEnviarAltaCli" name="btnEnviarAltaCli" value="Alta" class="btn btn-primary col-xs-12"/>
-                        </div>
-                    </form>
-                </div>
-                <!-- Fin Alta -->
-                <!-- Modificar -->
-                <div class="col-sm-6 col-sm-offset-3 oculto" id="modificarCliente">
-                    <h1 class="text-center">Modificar Cliente</h1>
-                    <div id="capaSelectModificarCliente">
-                        <div class="input-group col-xs-12">
-                            <label class="input-group-addon">Elige el cliente: </label>
-                            <select id="sltModificarCli" name="sltModificarCli" class="form-control">
-                                <!--Agregar los options-->
-                            </select>
-                        </div>
-                        &nbsp;
-                    </div>
-                    <div id="capaFormularioModificarCliente">
-                        <form name="frmClientesModificar" class="form-inline" role="form">
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Nombre: </span>
-                                <input name="txtNombreModificarCli" type="text" class="form-control" placeholder="nombre"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Apellidos: </span>
-                                <input name="txtApellidosModificarCli" type="text" class="form-control" placeholder="apellidos"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Dni: </span>
-                                <input name="txtDniModificarCli" type="text" class="form-control" placeholder="dni" disabled="disabled"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Email: </span>
-                                <input name="txtEmailModificarCli" type="text" class="form-control" placeholder="email"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Direcci&oacute;n: </span>
-                                <input name="txtDireccionModificarCli" type="text" class="form-control" placeholder="direcci&oacute;n"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Tel&eacute;fono: </span>
-                                <input name="txtTelefonoModificarCli" type="text" class="form-control" placeholder="tel&eacute;fono"/>
-                            </div>
-                            &nbsp;
-
-                            <div class="input-group col-xs-12">
-                                <input type="button" id="btnEnviarModificarCli" name="btnEnviarModificarCli" value="Modificar" class="btn btn-primary col-xs-12"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- Fin Modificar -->
-                <!-- Fin Clientes -->
-
-                <!-- Vehiculos -->
-                <!-- Alta -->
-                <div class="col-sm-6 col-sm-offset-3 oculto" id="altaVehiculo">
-                    <h1 class="text-center">Alta Veh&iacute;culo</h1>
-                    <form name="frmVehiculosAlta" class="form-inline" role="form">
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Matr&iacute;cula: </span>
-                            <input name="txtMatriculaAltaVehi" type="text" class="form-control" placeholder="matr&iacute;cula"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Marca: </span>
-                            <input name="txtMarcaAltaVehi" type="text" class="form-control" placeholder="marca"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <span class="input-group-addon">Modelo: </span>
-                            <input name="txtModeloAltaVehi" type="text" class="form-control" placeholder="modelo"/>
-                        </div>
-                        &nbsp;
-                        <div class="input-group col-xs-12">
-                            <label class="input-group-addon">Tipo:</label>
-                            <select name="sltTipoAltaVehi" class="form-control">
-                                <option value="0">Seleccione un tipo de vehiculo</option>
-                                <option value="moto">Moto</option>
-                                <option value="coche">Coche</option>
-                                <option value="camion">Camion</option>
-                            </select>
-                        </div>
-                        &nbsp;
-
-
-                        <div class="input-group col-xs-12">
-                            <input type="button" id="btnEnviarAltaVehi" name="btnEnviarAltaVehi" value="Alta" class="btn btn-primary col-xs-12"/>
-                        </div>
-                    </form>
-                </div>
-                <!-- Fin Alta -->
-                <!-- Modificar -->
-                <div class="col-sm-6 col-sm-offset-3 oculto" id="modificarVehiculo">
-                    <h1 class="text-center">Modificar Veh&iacute;culo</h1>
-                    <div id="capaSelectModificarVehiculo">
-                        <div class="input-group col-xs-12">
-                            <label class="input-group-addon">Elige el vehiculo: </label>
-                            <select id="sltModificarVehi" name="sltModificarVehi" class="form-control">
-                                <!--Agregar los options-->
-                            </select>
-                        </div>
-                        &nbsp;
-                    </div>
-                    <div id="capaFormularioModificarVehiculo">
-                        <form name="frmVehiculosModificar" class="form-inline" role="form">
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Matr&iacute;cula: </span>
-                                <input name="txtMatriculaModificarVehi" type="text" class="form-control" placeholder="matr&iacute;cula" disabled="disabled"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Marca: </span>
-                                <input name="txtMarcaModificarVehi" type="text" class="form-control" placeholder="marca"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <span class="input-group-addon">Modelo: </span>
-                                <input name="txtModeloModificarVehi" type="text" class="form-control" placeholder="modelo"/>
-                            </div>
-                            &nbsp;
-                            <div class="input-group col-xs-12">
-                                <label class="input-group-addon">Tipo:</label>
-                                <select name="sltTipoModificarVehi" class="form-control">
-                                    <option value="0">Seleccione un tipo de vehiculo</option>
-                                    <option value="moto">Moto</option>
-                                    <option value="coche">Coche</option>
-                                    <option value="camion">Camion</option>
-                                </select>
-                            </div>
-                            &nbsp;
-
-                            <div class="input-group col-xs-12">
-                                <input type="button" id="btnEnviarModificarVehi" name="btnEnviarModificarVehi" value="Modificar" class="btn btn-primary col-xs-12"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- Fin Modificar -->
-                <!-- Fin Vehiculos -->
-
-                <!-- Clases -->
-                <!-- Alta -->
-
-                <!-- Fin Alta -->
-                <!-- Fin Clases -->
-
-
-                <!-- ------------------------------------------- -->
-                <!-- Listados -->
-                <div class="col-sm-8 col-sm-offset-2 oculto" id="listadosTablas">
-
-                </div>
-                <!-- Fin Listados -->
-
-            </div>
-
-            <!-- Pie -->
-            <div class="row" id="pie">
-                <p class="text-center"><b>Hecho por:</b> <i>Sergio L&oacute;pez Casta&ntilde;o</i> e <i>Isabel Terrero G&oacute;mez</i></p>
-            </div>
-        </div>
-
-
-		<!-- jQuery -->
-		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
-        <script src="jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-        <!-- jQuery UI -->
-        <script src="jquery-ui-1.11.4/jquery-ui.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <!-- Objeto -->
-        <script src="js/objetos.js"></script>
-        <!-- Codigo -->
-        <script src="js/codigo3.js"></script>
-	</body>
+    <!-- jQuery -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+    <script src="jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+    <!-- jQuery UI -->
+    <script src="jquery-ui-1.11.4/jquery-ui.js"></script>
+    <!--Ajax-->
+    <script src="js/ajax.js"></script>
+    <!-- Objeto -->
+    <script src="js/objetos.js"></script>
+    <!-- Codigo -->
+    <script src="js/codigo.js"></script>
+</body>
 </html>
